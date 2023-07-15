@@ -10,64 +10,61 @@
       const getNumberContainer = () =>
         document.querySelector(".numbers-container");
 
-      const createNumberElement = () => document.createElement("li");
-
-      const extractNumber = (element) => +element.innerText;
-
-      const createElement = (elementName, content) => {
-        const element = document.createElement(elementName);
-        element.innerText = content;
+      const createNumberElement = (number) => {
+        const element = document.createElement("li");
+        element.innerText = number;
 
         return element;
       };
 
-      const display = (number) => {
+      const display = (element) => {
         const numberContainer = getNumberContainer();
-        const numberElement = createNumberElement();
-        numberElement.innerText = number;
-
-        numberContainer.appendChild(numberElement);
+        numberContainer.appendChild(element);
       };
 
-      const delayedPrompt = (prmtMsg, cb, timeout = 500) => {
+      const delayedPrompt = (prmtMsg, cb, timeout = 200) => {
         setTimeout(() => {
           const number = prompt(prmtMsg);
           cb(number);
         }, timeout);
       };
 
-      const findMaxElement = (numbers) => {
-        return numbers.reduce((maxElement, currentElement) => {
-          const currentNumber = extractNumber(currentElement);
-          const maxNumberSoFar = extractNumber(maxElement);
-
-          return maxNumberSoFar < currentNumber ? currentElement : maxElement;
-        });
+      const findMaxElement = (numberElements) => {
+        return numberElements.reduce((max, current) =>
+          parseInt(max.number) < parseInt(current.number) ? current : max
+        );
       };
 
       const highLightMax = (maxElement) =>
         maxElement.classList.add("high-light");
 
       const findAndHighLightMax = (numberElements) => {
-        const maxElement = findMaxElement(numberElements);
-        console.log(maxElement);
-        highLightMax(maxElement);
+        const max = findMaxElement(numberElements);
+        highLightMax(max.element);
       };
 
-      const collectNumbers = (count) => {
-        delayedPrompt("Enter a number", (number) => {
-          if (count === 0) {
-            const numberContainer = getNumberContainer();
-            findAndHighLightMax([...numberContainer.children]);
-            return;
-          }
+      const promptAndDisplay = () => {
+        const numberElements = [];
 
-          display(number);
-          collectNumbers(count - 1);
-        });
+        const collectNumbers = (count) => {
+          delayedPrompt("Enter a number", (number) => {
+            if (count === 0) {
+              findAndHighLightMax(numberElements);
+              return;
+            }
+
+            const element = createNumberElement(number);
+            numberElements.push({ element, number });
+            display(element);
+
+            collectNumbers(count - 1);
+          });
+        };
+
+        collectNumbers(5);
       };
 
-      window.onload = () => collectNumbers(5);
+      window.onload = promptAndDisplay;
     </script>
   </head>
 
