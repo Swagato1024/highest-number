@@ -21,24 +21,24 @@
         }, timeout);
       };
 
-      const collectNumbers = () => {
-        const numbers = [];
-        let count = 0;
+      const findAndDisplayMax = (numbers) => {};
 
+      const collectNumbers = (count) => {
         delayedPrompt("Enter a number", (number) => {
-          if (count === 10) {
+          if (count === 5) {
+            const numbers = getNumberContainer();
             findAndDisplayMax(numbers);
             return;
           }
 
-          numbers.push(number);
-          console.log(number);
-          display(number);
-          collectNumbers();
+          console.log("hello");
+          console.log(count);
+
+          collectNumbers(count + 1);
         });
       };
 
-      window.onload = () => collectNumbers();
+      window.onload = () => collectNumbers(0);
     </script>
   </head>
 
