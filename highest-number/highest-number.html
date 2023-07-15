@@ -1,5 +1,11 @@
 <html>
   <head>
+    <style>
+      .high-light {
+        background-color: aqua;
+      }
+    </style>
+
     <script>
       const getNumberContainer = () =>
         document.querySelector(".numbers-container");
@@ -21,19 +27,30 @@
         }, timeout);
       };
 
-      const findAndDisplayMax = (numbers) => {};
+      const findAndHighLightMax = (numbers) => {
+        const maxOfAll = Array.from(numbers).reduce((maxElement, current) => {
+          const currentNumber = +current.innerText;
+          const maxNumber = +maxElement.innerText;
+
+          return maxNumber < currentNumber ? current : maxElement;
+        });
+
+        maxOfAll.classList.add("high-light");
+        console.log(maxOfAll.innerText);
+      };
 
       const collectNumbers = (count) => {
+        const maxCount = 5;
+
         delayedPrompt("Enter a number", (number) => {
-          if (count === 5) {
-            const numbers = getNumberContainer();
-            findAndDisplayMax(numbers);
+          if (count === maxCount) {
+            const numberContainer = getNumberContainer();
+
+            findAndHighLightMax(numberContainer.children);
             return;
           }
 
-          console.log("hello");
-          console.log(count);
-
+          display(number);
           collectNumbers(count + 1);
         });
       };
