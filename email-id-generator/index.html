@@ -33,17 +33,38 @@
         return { person, emailId };
       };
 
-      window.onload = () => {
-        const name = prompt("Enter your name", "type your name");
-        const age = prompt("Enter your age", "type your age");
-        const { person, emailId } = createPersonCredential(name, age);
+      const getNameContainer = () => document.querySelector(".person");
 
-        document.querySelector("#credential").appendChild(person);
-        document.querySelector("#credential").appendChild(emailId);
+      const createNameElement = () => document.createElement("div");
+
+      const displayName = (name) => {
+        const nameContainer = getNameContainer();
+        const nameElement = createNameElement();
+        nameElement.innerText = name;
+
+        nameContainer.appendChild(nameElement);
       };
+
+      const delayedPrompt = (promptMsg, cb, timeout = 1000) => {
+        setTimeout(() => {
+          const promptValue = prompt(promptMsg);
+          cb(promptValue);
+        }, timeout);
+      };
+
+      const collectNames = () => {
+        delayedPrompt("Enter your name", (name) => {
+          if (name === null) return;
+          console.log(name);
+          displayName(name);
+          collectNames();
+        });
+      };
+
+      window.onload = () => collectNames();
     </script>
   </head>
   <body>
-    <div id="credential"></div>
+    <div class="person"></div>
   </body>
 </html>
