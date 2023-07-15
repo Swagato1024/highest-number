@@ -22,14 +22,18 @@
       };
 
       const collectNumbers = () => {
-        let max = 0;
+        const numbers = [];
+        let count = 0;
 
         delayedPrompt("Enter a number", (number) => {
-          if (number === null) return;
+          if (count === 10) {
+            findAndDisplayMax(numbers);
+            return;
+          }
 
-          max = Math.max(max, number);
-          console.log(max);
-          display(max);
+          numbers.push(number);
+          console.log(number);
+          display(number);
           collectNumbers();
         });
       };
