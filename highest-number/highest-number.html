@@ -12,6 +12,15 @@
 
       const createNumberElement = () => document.createElement("li");
 
+      const extractNumber = (element) => +element.innerText;
+
+      const createElement = (elementName, content) => {
+        const element = document.createElement(elementName);
+        element.innerText = content;
+
+        return element;
+      };
+
       const display = (number) => {
         const numberContainer = getNumberContainer();
         const numberElement = createNumberElement();
@@ -27,35 +36,38 @@
         }, timeout);
       };
 
-      const findAndHighLightMax = (numbers) => {
-        const maxOfAll = Array.from(numbers).reduce((maxElement, current) => {
-          const currentNumber = +current.innerText;
-          const maxNumber = +maxElement.innerText;
+      const findMaxElement = (numbers) => {
+        return numbers.reduce((maxElement, currentElement) => {
+          const currentNumber = extractNumber(currentElement);
+          const maxNumberSoFar = extractNumber(maxElement);
 
-          return maxNumber < currentNumber ? current : maxElement;
+          return maxNumberSoFar < currentNumber ? currentElement : maxElement;
         });
+      };
 
-        maxOfAll.classList.add("high-light");
-        console.log(maxOfAll.innerText);
+      const highLightMax = (maxElement) =>
+        maxElement.classList.add("high-light");
+
+      const findAndHighLightMax = (numberElements) => {
+        const maxElement = findMaxElement(numberElements);
+        console.log(maxElement);
+        highLightMax(maxElement);
       };
 
       const collectNumbers = (count) => {
-        const maxCount = 5;
-
         delayedPrompt("Enter a number", (number) => {
-          if (count === maxCount) {
+          if (count === 0) {
             const numberContainer = getNumberContainer();
-
-            findAndHighLightMax(numberContainer.children);
+            findAndHighLightMax([...numberContainer.children]);
             return;
           }
 
           display(number);
-          collectNumbers(count + 1);
+          collectNumbers(count - 1);
         });
       };
 
-      window.onload = () => collectNumbers(0);
+      window.onload = () => collectNumbers(5);
     </script>
   </head>
 
