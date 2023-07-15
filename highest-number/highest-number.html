@@ -1,27 +1,35 @@
 <html>
-<head>
-  <script>
-    const display = (number) => {
-    } 
-    const delayedPrompt = (prmtMsg, cb, timeout = 500) => {
-      setTimeout(() => {
-        const number = prompt(prmtMsg);
-        cb(number);
-      }, timeout)
-    }
+  <head>
+    <script>
+      const getNumberContainer = () =>
+        document.querySelector(".numbers-container");
 
-    const findHighestNumber = () => {
-      let max = 0;
-      delayedPrompt("Enter a number", (number) => {
-         max = Math.max(max, number);
-         display(max);
-      })
-    }
-    window.onload = () => findHighestNumber();
-  </script>
-</head>
+      const createNumberElement = () => document.createElement("li");
 
-<body>
-  <h3>Highest number</h3>
-</body>
+      const display = (number) => {};
+      
+      const delayedPrompt = (prmtMsg, cb, timeout = 500) => {
+        setTimeout(() => {
+          const number = prompt(prmtMsg);
+          cb(number);
+        }, timeout);
+      };
+
+      const collectNumbers = () => {
+        let max = 0;
+
+        delayedPrompt("Enter a number", (number) => {
+          max = Math.max(max, number);
+          display(max);
+        });
+      };
+
+      window.onload = () => collectNumbers();
+    </script>
+  </head>
+
+  <body>
+    <h3>Highest number</h3>
+    <ul class="numbers-container"></ul>
+  </body>
 </html>
