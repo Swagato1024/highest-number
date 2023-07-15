@@ -6,8 +6,14 @@
 
       const createNumberElement = () => document.createElement("li");
 
-      const display = (number) => {};
-      
+      const display = (number) => {
+        const numberContainer = getNumberContainer();
+        const numberElement = createNumberElement();
+        numberElement.innerText = number;
+
+        numberContainer.appendChild(numberElement);
+      };
+
       const delayedPrompt = (prmtMsg, cb, timeout = 500) => {
         setTimeout(() => {
           const number = prompt(prmtMsg);
@@ -19,8 +25,12 @@
         let max = 0;
 
         delayedPrompt("Enter a number", (number) => {
+          if (number === null) return;
+
           max = Math.max(max, number);
+          console.log(max);
           display(max);
+          collectNumbers();
         });
       };
 
