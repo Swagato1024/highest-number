@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script>
+      const createElement = (nodeName, content, className) => {
+        const element = document.createElement(nodeName);
+        element.innerText = content;
+        element.classList.add(className);
+
+        return element;
+      };
+
+      const createPerson = (name, age) => {
+        const personName = createElement("p", name, "person-name");
+        const personAge = createElement("p", age, "person-age");
+        const person = createElement("div", "", "person");
+
+        person.appendChild(personName);
+        person.appendChild(personAge);
+
+        return person;
+      };
+
+      const createEmailId = (fullName, age) => {
+        const emaiId = `${fullName}${age}@gmail.com`;
+
+        return createElement("p", emaiId, "email-id");
+      };
+
+      const createPersonCredential = (name, age) => {
+        const person = createPerson(name, age);
+        const emailId = createEmailId(name, age);
+
+        return { person, emailId };
+      };
+
+      window.onload = () => {
+        const name = prompt("Enter your name", "type your name");
+        const age = prompt("Enter your age", "type your age");
+        const { person, emailId } = createPersonCredential(name, age);
+
+        document.querySelector("#credential").appendChild(person);
+        document.querySelector("#credential").appendChild(emailId);
+      };
+    </script>
+  </head>
+  <body>
+    <div id="credential"></div>
+  </body>
+</html>
