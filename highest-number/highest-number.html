@@ -31,7 +31,7 @@
 
       const findMaxElement = (numberElements) => {
         return numberElements.reduce((max, current) =>
-          parseInt(max.number) < parseInt(current.number) ? current : max
+          max.number < current.number ? current : max
         );
       };
 
@@ -54,7 +54,7 @@
             }
 
             const element = createNumberElement(number);
-            numberElements.push({ element, number });
+            numberElements.push({ element, number: parseInt(number) });
             display(element);
 
             collectNumbers(count - 1);
