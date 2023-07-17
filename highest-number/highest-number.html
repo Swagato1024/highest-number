@@ -2,7 +2,16 @@
   <head>
     <style>
       .highlight {
-        background-color: aqua;
+        color: red;
+        font-weight: 600;
+      }
+
+      #above {
+        border: 1px solid black;
+      }
+
+      #below {
+        border: 1px solid black;
       }
     </style>
 
@@ -17,9 +26,12 @@
         return element;
       };
 
-      const display = (element) => {
-        const numberContainer = getNumberContainer();
-        numberContainer.appendChild(element);
+      const display = ({ element, number }) => {
+        if (number < 5) {
+          displayBelow(element);
+          return;
+        }
+        displayAbove(element);
       };
 
       const delayedPrompt = (prmtMsg, cb, timeout = 200) => {
@@ -43,8 +55,19 @@
         highlightMax(max.element);
       };
 
+      const displayAbove = (element) => {
+        const groupName = document.querySelector("#above");
+        groupName.appendChild(element);
+      };
+
+      const displayBelow = (element) => {
+        const groupName = document.querySelector("#below");
+        groupName.appendChild(element);
+      };
+
       const collectNumbers = (count, numbers) => {
         if (count === 0) {
+          partition(numbers);
           findAndHighlightMax(numbers);
           return;
         }
@@ -52,7 +75,7 @@
         delayedPrompt("Enter a number", (number) => {
           const element = createNumberElement(number);
           const numberElement = { element, number };
-          display(element);
+          display({ element, number });
 
           collectNumbers(count - 1, [...numbers, numberElement]);
         });
@@ -63,7 +86,14 @@
   </head>
 
   <body>
-    <h3>Highest number</h3>
     <ul class="numbers-container"></ul>
+
+    <div id="above">
+      <ul></ul>
+    </div>
+
+    <div id="below">
+      <ul></ul>
+    </div>
   </body>
 </html>
