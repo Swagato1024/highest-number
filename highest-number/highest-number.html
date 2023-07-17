@@ -1,7 +1,7 @@
 <html>
   <head>
     <style>
-      .high-light {
+      .highlight {
         background-color: aqua;
       }
     </style>
@@ -35,36 +35,30 @@
         );
       };
 
-      const highLightMax = (maxElement) =>
-        maxElement.classList.add("high-light");
+      const highlightMax = (maxElement) =>
+        maxElement.classList.add("highlight");
 
-      const findAndHighLightMax = (numberElements) => {
+      const findAndHighlightMax = (numberElements) => {
         const max = findMaxElement(numberElements);
-        highLightMax(max.element);
+        highlightMax(max.element);
       };
 
-      const promptAndDisplay = () => {
-        const numberElements = [];
+      const collectNumbers = (count, numbers) => {
+        if (count === 0) {
+          findAndHighlightMax(numbers);
+          return;
+        }
 
-        const collectNumbers = (count) => {
-          if (count === 0) {
-            findAndHighLightMax(numberElements);
-            return;
-          }
+        delayedPrompt("Enter a number", (number) => {
+          const element = createNumberElement(number);
+          const numberElement = { element, number };
+          display(element);
 
-          delayedPrompt("Enter a number", (number) => {
-            const element = createNumberElement(number);
-            numberElements.push({ element, number });
-            display(element);
-
-            collectNumbers(count - 1);
-          });
-        };
-
-        collectNumbers(5);
+          collectNumbers(count - 1, [...numbers, numberElement]);
+        });
       };
 
-      window.onload = promptAndDisplay;
+      window.onload = collectNumbers(5, []);
     </script>
   </head>
 
