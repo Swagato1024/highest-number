@@ -1,5 +1,11 @@
-const displayCorrentAns = () => {};
-const correctTheMistake = () => {};
+const displayCorrentAns = (event) => {
+  event.target.style.color = "green";
+};
+const correctTheMistake = (event) => {
+  event.target.style.color = "red";
+  const rightAnswer = document.querySelector(".right-answer");
+  rightAnswer.style.color = "green";
+};
 
 const setNextQuestion = () => {
   const question = document.querySelector(".question");
@@ -11,14 +17,10 @@ const setNextQuestion = () => {
   wrongAnswer.innerText = "this is wrong";
 };
 
-const displayNextQuestion = () => {
+const delayNextQuestion = () => {
   console.log("next question comming");
 
   setTimeout(setNextQuestion, 2000);
-};
-
-const delayNextQuestion = () => {
-  displayNextQuestion();
 };
 
 const addListeners = () => {
