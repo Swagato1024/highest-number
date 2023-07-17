@@ -33,6 +33,10 @@ const handleEventPrpagation = () => {
   parent.onclick = (event) => {
     console.log(event.secretKey);
     console.log(event.target);
+    event.stopPropagation();
+  };
+  root.onclick = (event) => {
+    console.log("from root");
   };
 };
 
