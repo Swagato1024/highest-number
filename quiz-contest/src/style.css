@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+
+#mcq-container {
+  height: 500px;
+  width: 300px;
+}
