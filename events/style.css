@@ -1,0 +1,47 @@
+#box1,
+#box2,
+#box3 {
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+
+  text-align: center;
+}
+
+.box-container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.highlight {
+  color: blue;
+}
+
+#timer {
+  height: 40px;
+  width: 40px;
+}
+
+#root {
+  height: 40%;
+  width: 80%;
+
+  border: 1px solid black;
+}
+
+#parent {
+  height: 80%;
+  width: 80%;
+  border: 1px solid red;
+}
+
+#parent * {
+  border: 1px solid blue;
+}
+
+#left,
+#right {
+  height: 40%;
+  width: 30%;
+}

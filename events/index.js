@@ -40,8 +40,29 @@ const handleEventPrpagation = () => {
   };
 };
 
+const handleMultipleLisiteners = () => {
+  const left = document.querySelector("#left");
+  const right = document.querySelector("#right");
+  const parent = document.querySelector("#parent");
+  const root = document.querySelector("#root");
+
+  left.addEventListener("click", (e) =>
+    console.log(`source: ${(e.target.innerText = "debu ")}`)
+  );
+  left.addEventListener("click", () => console.log("left"));
+  left.addEventListener("click", (e) => {
+    console.log("at left level");
+    e.stopPropagation();
+  });
+  left.addEventListener("click", () => console.log("at left level again"));
+
+  parent.addEventListener("click", () => console.log("at parent level"));
+  root.addEventListener("click", () => console.log("at root level"));
+};
+
 window.onload = () => {
   console.log("hello");
-  // handleEvents();
-  handleEventPrpagation();
+  handleEvents();
+  // handleEventPrpagation();
+  handleMultipleLisiteners();
 };
