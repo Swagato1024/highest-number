@@ -1,8 +1,8 @@
 const changeInnerText = (event) => {
-  console.log(event);
   console.log(event.type);
   console.log(event.target);
 
+  event.secretKey = 100;
   event.target.innerText = event.type;
 };
 
@@ -22,7 +22,22 @@ const handleEvents = () => {
   box3.onmouseleave = changeInnerTextToBlue;
 };
 
+const handleEventPrpagation = () => {
+  const left = document.querySelector("#left");
+  const right = document.querySelector("#right");
+  const parent = document.querySelector("#parent");
+  const root = document.querySelector("#root");
+
+  left.onclick = changeInnerText;
+  right.onclick = changeInnerText;
+  parent.onclick = (event) => {
+    console.log(event.secretKey);
+    console.log(event.target);
+  };
+};
+
 window.onload = () => {
   console.log("hello");
-  handleEvents();
+  // handleEvents();
+  handleEventPrpagation();
 };

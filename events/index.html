@@ -20,6 +20,34 @@
       .highlight {
         color: blue;
       }
+
+      #timer {
+        height: 40px;
+        width: 40px;
+      }
+
+      #root {
+        height: 40%;
+        width: 80%;
+
+        border: 1px solid black;
+      }
+
+      #parent {
+        height: 80%;
+        width: 80%;
+        border: 1px solid red;
+      }
+
+      #parent * {
+        border: 1px solid blue;
+      }
+
+      #left,
+      #right {
+        height: 40%;
+        width: 30%;
+      }
     </style>
 
     <script src="index.js"></script>
@@ -29,6 +57,19 @@
       <div id="box1">Clicked: No</div>
       <div id="box2">Mouse not entered</div>
       <div id="box3">Hii</div>
+    </div>
+
+    <div class="stopwatch">
+      <div id="start">start</div>
+      <div id="stop">stop</div>
+      <div id="timer"></div>
+    </div>
+
+    <div id="root">
+      <div id="parent">
+        <div id="left">left</div>
+        <div id="right">right</div>
+      </div>
     </div>
   </body>
 </html>
