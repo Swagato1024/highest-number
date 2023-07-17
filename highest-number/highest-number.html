@@ -24,7 +24,7 @@
 
       const delayedPrompt = (prmtMsg, cb, timeout = 200) => {
         setTimeout(() => {
-          const number = prompt(prmtMsg);
+          const number = +prompt(prmtMsg);
           cb(number);
         }, timeout);
       };
@@ -47,14 +47,14 @@
         const numberElements = [];
 
         const collectNumbers = (count) => {
-          delayedPrompt("Enter a number", (number) => {
-            if (count === 0) {
-              findAndHighLightMax(numberElements);
-              return;
-            }
+          if (count === 0) {
+            findAndHighLightMax(numberElements);
+            return;
+          }
 
+          delayedPrompt("Enter a number", (number) => {
             const element = createNumberElement(number);
-            numberElements.push({ element, number: parseInt(number) });
+            numberElements.push({ element, number });
             display(element);
 
             collectNumbers(count - 1);
