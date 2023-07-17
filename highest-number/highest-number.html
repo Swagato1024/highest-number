@@ -68,11 +68,29 @@
         return Array.from(parent.children);
       };
 
-      const display = (partitions) => {
-        
+      const removeAllChildren = (parent) => {
+        Array.from(parent.children).forEach((child) =>
+          parent.removeChild(child)
+        );
+
+        return parent;
       };
 
+      const extractElements = (numberElemets) =>
+        numberElemets.map(({ element }) => element);
 
+      const display = (partitions) => {
+        const largeElementsContainer = document.querySelector("#above > ul");
+        const smallElementsContainer = document.querySelector("#below > ul");
+
+        removeAllChildren(largeElementsContainer);
+        let elements = extractElements(partitions.largeElements);
+        largeElementsContainer.append(...elements);
+
+        removeAllChildren(smallElementsContainer);
+        elements = extractElements(partitions.smallElements);
+        smallElementsContainer.append(...elements);
+      };
 
       const sortInAsc = (elements) =>
         elements.sort((a, b) => a.number - b.number);
@@ -107,7 +125,7 @@
           sortInAsc(updatedPartitions.largeElements);
           sortInAsc(updatedPartitions.smallElements);
 
-          display(updatePartitions);
+          display(updatedPartitions);
           collectNumbers(count - 1, updatedPartitions);
         });
       };
