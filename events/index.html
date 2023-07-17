@@ -7,14 +7,28 @@
         height: 100px;
         width: 100px;
         border: 1px solid black;
+
+        text-align: center;
+      }
+
+      .box-container {
+        display: flex;
+        flex-direction: row;
+        column-gap: 20px;
+      }
+
+      .highlight {
+        color: blue;
       }
     </style>
 
     <script src="index.js"></script>
   </head>
   <body>
-    <div id="box1">Clicked: No</div>
-    <div id="box2">Mouse not entered</div>
-    <div id="box3">Hii</div>
+    <div class="box-container">
+      <div id="box1">Clicked: No</div>
+      <div id="box2">Mouse not entered</div>
+      <div id="box3">Hii</div>
+    </div>
   </body>
 </html>
