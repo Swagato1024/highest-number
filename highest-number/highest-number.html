@@ -26,14 +26,6 @@
         return element;
       };
 
-      const display = ({ element, number }) => {
-        if (number < 5) {
-          displayBelow(element);
-          return;
-        }
-        displayAbove(element);
-      };
-
       const delayedPrompt = (prmtMsg, cb, timeout = 200) => {
         setTimeout(() => {
           const number = +prompt(prmtMsg);
@@ -55,33 +47,75 @@
         highlightMax(max.element);
       };
 
-      const displayAbove = (element) => {
-        const groupName = document.querySelector("#above");
-        groupName.appendChild(element);
+      const displayAbove = (elements) => {
+        if (elements.length === 0) return;
+
+        const groupName = document.querySelector("#above > ul");
+        console.log(elements);
+
+        groupName.append(...elements);
       };
 
-      const displayBelow = (element) => {
-        const groupName = document.querySelector("#below");
-        groupName.appendChild(element);
+      const displayBelow = (elements) => {
+        if (elements.length === 0) return;
+
+        const groupName = document.querySelector("#below > ul");
+        groupName.append(...elements);
       };
 
-      const collectNumbers = (count, numbers) => {
+      const getChildren = (container) => {
+        const parent = document.querySelector(container);
+        return Array.from(parent.children);
+      };
+
+      const display = (partitions) => {
+        
+      };
+
+
+
+      const sortInAsc = (elements) =>
+        elements.sort((a, b) => a.number - b.number);
+
+      const updatePartitions = (partitions, numberElement) => {
+        const { largeElements, smallElements } = partitions;
+
+        const updatedPartitions = {
+          largeElements: [...largeElements],
+          smallElements: [...smallElements],
+        };
+
+        if (numberElement.number < 5) {
+          updatedPartitions.smallElements.push(numberElement);
+          return updatedPartitions;
+        }
+
+        updatedPartitions.largeElements.push(numberElement);
+        return updatedPartitions;
+      };
+
+      const collectNumbers = (count, partitions) => {
         if (count === 0) {
-          partition(numbers);
-          findAndHighlightMax(numbers);
           return;
         }
 
         delayedPrompt("Enter a number", (number) => {
           const element = createNumberElement(number);
           const numberElement = { element, number };
-          display({ element, number });
+          const updatedPartitions = updatePartitions(partitions, numberElement);
 
-          collectNumbers(count - 1, [...numbers, numberElement]);
+          sortInAsc(updatedPartitions.largeElements);
+          sortInAsc(updatedPartitions.smallElements);
+
+          display(updatePartitions);
+          collectNumbers(count - 1, updatedPartitions);
         });
       };
 
-      window.onload = collectNumbers(5, []);
+      window.onload = collectNumbers(4, {
+        largeElements: [],
+        smallElements: [],
+      });
     </script>
   </head>
 
