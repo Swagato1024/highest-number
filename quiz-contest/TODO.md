@@ -7,3 +7,8 @@
 5. show next question when
    - time is over
    - ans is given
+
+
+   Iterating over array of quiz
+   
+  

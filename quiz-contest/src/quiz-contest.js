@@ -1,3 +1,18 @@
+const quiz = {
+  questions: [
+    {
+      question: "What is the capital of India ?",
+      correct: ["New Dellhi"],
+      others: ["Mumbai", "Pune"],
+    },
+  ],
+  currentQuestionIndex: 0,
+  getNextQuestionIndex: () => {
+    quiz.currentQuestionIndex++;
+    return quiz.currentQuestionIndex;
+  },
+};
+
 const displayCorrentAns = (event) => {
   event.target.style.color = "green";
 };
@@ -12,12 +27,15 @@ const setNextQuestion = () => {
   const rightAnswer = document.querySelector(".right-answer");
   const wrongAnswer = document.querySelector(".wrong-answer");
 
-  question.innerText = "this is new question";
-  rightAnswer.innerText = "this is right";
-  wrongAnswer.innerText = "this is wrong";
+  rightAnswer.style.color = "black";
+  wrongAnswer.style.color = "black";
+
+  question.innerText = "How many times India won world cup";
+  rightAnswer.innerText = "2 times";
+  wrongAnswer.innerText = "3 times";
 };
 
-const delayNextQuestion = () => {
+const showNextQuestion = () => {
   console.log("next question comming");
 
   setTimeout(setNextQuestion, 2000);
@@ -31,7 +49,7 @@ const addListeners = () => {
   rightAnswer.addEventListener("click", displayCorrentAns);
   wrongAnswer.addEventListener("click", correctTheMistake);
 
-  choices.addEventListener("click", delayNextQuestion);
+  choices.addEventListener("click", showNextQuestion);
 };
 
 const startQuiz = () => {
